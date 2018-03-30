@@ -5,11 +5,15 @@ import java.util.Scanner;
 
 
 public class MovieGuessGame {
+
+
+
     public static void main (String args[]) {
 
+        GameEngine movieGameEngine = new GameEngine(10);
         //Open and parse file into dataset
-        File fileHandle = new File("movies.txt");
-        String[] movieNames = null;
+        /* File fileHandle = new File("movies.txt");
+       String[] movieNames = null;
         int rowsInDataset = 0;
         try {
             //If file exist open it
@@ -47,12 +51,12 @@ public class MovieGuessGame {
         char[] currentGuess = new char[selectedTitle.length()];
         for (int i = 0; i < selectedTitle.length(); i++) {
             currentGuess[i] = '_';
-        }
+        }*/
 
-        System.out.println("Selected title is " + selectedTitle);
+        System.out.println("Selected title is " + movieGameEngine.getMoveTile() );
         //UI on the game
 
-        System.out.println("Guess the movie title, you have 10 chances to guess the correct letters in the title");
+       /* System.out.println("Guess the movie title, you have 10 chances to guess the correct letters in the title");
         System.out.println("The current title is ");
         System.out.println(Arrays.toString(currentGuess));
 
@@ -62,6 +66,6 @@ public class MovieGuessGame {
 
 
         System.out.println("Rows in data set is" + rowsInDataset);
-        System.out.println("Last movie title is" + movieNames[rowsInDataset - 1]);
+        System.out.println("Last movie title is" + movieNames[rowsInDataset - 1]);*/
     }
 }
