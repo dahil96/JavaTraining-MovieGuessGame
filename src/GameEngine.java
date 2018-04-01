@@ -7,11 +7,15 @@ public class GameEngine {
     private int guessesLeft;
     private String selectedTitle;
     private String[] movieNames;
+    private String[] currentRightAnswers;
+    private String currentWrongGuesses;
 
     public GameEngine() {
         guessesLeft = 0;
         movieNames = loadAvailableTitles();
         selectedTitle = this.getNewTitle();
+        currentRightAnswers = null;
+        currentWrongGuesses = "";
     }
     private String[] loadAvailableTitles(){
         File fileHandle = new File("movies.txt");
@@ -44,6 +48,17 @@ public class GameEngine {
         }
         return loadedMovieNames;
     }
+    private String[] buildNewAnswerString() {
+        String[] answerString = new String[selectedTitle.length()-1];
+        for (int i = 0; i < answerString.length; i++) {
+            if( Character.isWhitespace(selectedTitle.charAt((i)))){
+                answerString[i] = "_";
+            } else {
+                answerString[i] = "-";
+            }
+        }
+        return answerString;
+    }
     private String getNewTitle() {
         //Select a random movie title
         Random randomGenerator = new Random();
@@ -51,20 +66,28 @@ public class GameEngine {
         return movieNames[randomIndex];
     }
 
-    public boolean startNewGame() {
-        return true;
+    public void startNewGame(int nrOfGuesses) {
+        //Setup new game
+        guessesLeft = nrOfGuesses;
+        currentWrongGuesses = "";
+        currentRightAnswers = buildNewAnswerString();
+        System.out.println("Selected movie title is: " + selectedTitle);
     }
-    /*
-        //hold current letters from wrong guesses
-        String wrongGuesses = "";
 
-        //Hold representation of current right guesses
-        char[] currentGuess = new char[selectedTitle.length()];
-        for (int i = 0; i < selectedTitle.length(); i++) {
-            currentGuess[i] = '_';
-        }*/
+    public int makeGuess(String guess) {
+        if (guessesLeft > 0) {
+            if(selectedTitle.contains(guess)) {
+                System.out.println("contains");
+            }
+            guessesLeft--;
+        }
+        return guessesLeft;
+    }
+    public int noOfGuessesLeft() {
+        return guessesLeft;
+    }
 
-    public String getMoveTile() {
-        return selectedTitle;
+    public String getCurrentRightAnswers () {
+        return String.join(" ",currentRightAnswers);
     }
 }
